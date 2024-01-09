@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class SecurityConfig {
 
     private final String[] swaggerUrls = {"/swagger-ui/**", "/v3/**"};
-    private final String[] authUrls = {"/", "/callback"};
+    private final String[] authUrls = {"/", "/login/kakao"};
     private final String[] allowedUrls = Stream.concat(Arrays.stream(swaggerUrls), Arrays.stream(authUrls))
             .toArray(String[]::new);
 
