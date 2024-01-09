@@ -11,16 +11,19 @@ spring:
         format_sql: true
         show_sql: true
 server:
-  port: 8000
-#  ssl:
-#    enabled: true
-#    enabled-protocols:
-#      - TLSv1.1
-#      - TLSv1.2
-#    key-store: "/app/static/yourprotein_api.p12"
-#    key-store-password: "yourprotein!"
-#    key-store-type: "PKCS12"
+  port: 443
+  ssl:
+    enabled: true
+    enabled-protocols:
+      - TLSv1.1
+      - TLSv1.2
+    key-store: "/app/static/yourprotein_api.p12"
+    key-store-password: "yourprotein!"
+    key-store-type: "PKCS12"
 kakao:
   client_id: 3d93f617a4d6fc388877925283f37797
-
+api:
+  recipe:
+    key: baf469f650744ae9a7f6
+    url: http://openapi.foodsafetykorea.go.kr/api/%s/COOKRCP01/json/1/%d/
 

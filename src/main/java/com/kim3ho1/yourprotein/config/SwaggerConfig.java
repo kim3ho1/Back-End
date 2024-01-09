@@ -27,11 +27,11 @@ public class SwaggerConfig {
 
     private Info getSwaggerInfo() {
         License license = new License();
-        license.setName("{Application}");
+        license.setName("Your Protein");
 
         return new Info()
-                .title("Spon-Us API Document")
-                .description("Spon-Us의 API 문서 입니다.")
+                .title("Your Protein API Document")
+                .description("Your Protein의 API 문서 입니다.")
                 .version("v0.0.1")
                 .license(license);
     }
@@ -42,15 +42,13 @@ public class SwaggerConfig {
                         "access-token",
                         new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
                                 .bearerFormat("JWT")
                                 .in(SecurityScheme.In.HEADER)
-                                .name("Authorization"))
+                                .name("accessToken"))
                 .addSecuritySchemes(
                         "refresh-token",
                         new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
                                 .bearerFormat("JWT")
                                 .in(SecurityScheme.In.HEADER)
                                 .name("refreshToken"));
