@@ -11,15 +11,15 @@ spring:
         format_sql: true
         show_sql: true
 server:
-  port: 443
-  ssl:
-    enabled: true
-    enabled-protocols:
-      - TLSv1.1
-      - TLSv1.2
-    key-store: "/app/static/yourprotein_api.p12"
-    key-store-password: "yourprotein!"
-    key-store-type: "PKCS12"
+  port: 8000
+#  ssl:
+#    enabled: true
+#    enabled-protocols:
+#      - TLSv1.1
+#      - TLSv1.2
+#    key-store: "/app/static/yourprotein_api.p12"
+#    key-store-password: "yourprotein!"
+#    key-store-type: "PKCS12"
 kakao:
   client_id: 3d93f617a4d6fc388877925283f37797
 

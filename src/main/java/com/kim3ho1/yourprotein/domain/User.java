@@ -42,4 +42,11 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true)
     private Long kakaoId;
 
+    public void deleteRefreshToken() {
+        this.refreshToken = null;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

@@ -37,6 +37,7 @@ public class KakaoLoginController {
         if (!userService.isUserByKakaoId(userInfo.getId())) {
             userService.registerKakao(userInfo);
         }
+
         return ResponseEntity.ok(userToken);
     }
 }

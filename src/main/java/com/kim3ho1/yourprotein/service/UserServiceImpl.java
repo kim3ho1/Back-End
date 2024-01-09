@@ -37,7 +37,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByKakao(Long kakaoId) {
+        return userRepository.findByKakaoId(kakaoId).orElseThrow();
+    }
+
+    @Override
     public boolean isUserByKakaoId(Long kakaoId) {
         return userRepository.findByKakaoId(kakaoId).isPresent();
+    }
+
+    @Override
+    public void deleteRefreshTokenByKakaoId(Long kakaoId) {
+        User user =  userRepository.findByKakaoId(kakaoId).orElseThrow();
+    }
+
+    @Override
+    public void setRefreshTokenByKakaoId(Long kakaoId, String refreshToken) {
+        User user =  userRepository.findByKakaoId(kakaoId).orElseThrow();
+        user.setRefreshToken(refreshToken);
     }
 }
