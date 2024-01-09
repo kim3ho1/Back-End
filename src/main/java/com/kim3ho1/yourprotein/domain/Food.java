@@ -18,26 +18,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PRIVATE)
 @Entity
-@Table(name = "recipe")
-public class Recipe {
+@Table(name = "food")
+public class Food {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "recipe_id")
+	@Column(name = "food_id")
 	private Long id;
 
-	private String recipeName;
-	@Column(name = "details", length = 500)
-	private String details; // 재료
+	private String category;
+	private String foodName;
+	private String amount;
+	private String measure;
 	private String kcal;
-	private String carbo;
 	private String protein;
 	private String fat;
-	private String na;
-	private String kind; // 요리 종류
-	@Column(name = "images", length = 5000)
-	private String images;
-
-	@Column(name = "manual", length = 5000)
-	private String manual;
-
+	private String carbo;
 }

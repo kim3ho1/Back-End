@@ -78,7 +78,7 @@ public class RecipeService {
 						.recipeName(recipe.get("RCP_NM").asText())
 						.details(recipe.get("RCP_PARTS_DTLS").asText())
 						.kcal(recipe.get("INFO_ENG").asText())
-						.carbon(recipe.get("INFO_CAR").asText())
+						.carbo(recipe.get("INFO_CAR").asText())
 						.protein(recipe.get("INFO_PRO").asText())
 						.fat(recipe.get("INFO_FAT").asText())
 						.na(recipe.get("INFO_NA").asText())
