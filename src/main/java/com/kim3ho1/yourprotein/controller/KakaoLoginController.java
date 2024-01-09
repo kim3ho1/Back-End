@@ -39,21 +39,23 @@ public class KakaoLoginController {
     private UriComponentsBuilder uriBuilder;
 
     @GetMapping("/callback")
-    public ResponseEntity<?> callback(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public HttpServletResponse callback(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserRegisterDto.KakaoResponseDto userToken = kakaoService.getAccessTokenFromKakao(client_id, code);
         UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(userToken.getAccessToken());
         if (!userService.isUserByKakaoId(userInfo.getId())) {
             userService.registerKakao(userInfo);
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(uriBuilder.path("http://localhost:5500").build().toUri());
+        response.sendRedirect("http://localhost:5500");
+
         Cookie cookie = new Cookie("accessToken", userToken.getAccessToken());
         response.addCookie(cookie);
         Cookie cookie2 = new Cookie("refreshToken", userToken.getRefreshToken());
         response.addCookie(cookie2);
 
+        log.info("redirect");
 
-        return  new ResponseEntity<>(userInfo, headers, 303);
+
+        return response;
     }
 }
