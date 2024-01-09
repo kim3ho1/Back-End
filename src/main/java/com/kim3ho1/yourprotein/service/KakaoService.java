@@ -2,6 +2,7 @@ package com.kim3ho1.yourprotein.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kim3ho1.yourprotein.dto.UserRegisterDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,8 @@ public class KakaoService {
             result += line;
         }
 
+        log.info(result);
+
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
         });
@@ -53,10 +56,9 @@ public class KakaoService {
         return accessToken;
     }
 
-    public HashMap<String, Object> getUserInfo(String access_Token) throws IOException {
+    public UserRegisterDto.KakaoUserRegisterDto getUserInfo(String access_Token) throws IOException {
         // 클라이언트 요청 정보
-        HashMap<String, Object> userInfo = new HashMap<String, Object>();
-
+//        HashMap<String, Object> userInfo = new HashMap<String, Object>();
 
         //------kakao GET 요청------
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -64,9 +66,6 @@ public class KakaoService {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
-        int responseCode = conn.getResponseCode();
-        System.out.println("responseCode : " + responseCode);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -88,21 +87,23 @@ public class KakaoService {
 
         //사용자 정보 추출
         Map<String, Object> properties = (Map<String, Object>) jsonMap.get("properties");
+        log.info("properties : " + properties);
         Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("kakao_account");
+        log.info("kakao_account : " + kakao_account);
 
 
         Long id = (Long) jsonMap.get("id");
         String nickname = properties.get("nickname").toString();
-        String profileImage = properties.get("profile_image").toString();
-        String email = kakao_account.get("email").toString();
+//        String profileImage = properties.get("profile_image").toString();
+//        String email = kakao_account.get("email").toString();
 
         //userInfo에 넣기
-        userInfo.put("id", id);
-        userInfo.put("nickname", nickname);
-        userInfo.put("profileImage", profileImage);
-        userInfo.put("email", email);
+//        userInfo.put("id", id);
+//        userInfo.put("nickname", nickname);
+//        userInfo.put("profileImage", profileImage);
+//        userInfo.put("email", email);
 
 
-        return userInfo;
+        return new UserRegisterDto.KakaoUserRegisterDto(id, nickname);
     }
 }

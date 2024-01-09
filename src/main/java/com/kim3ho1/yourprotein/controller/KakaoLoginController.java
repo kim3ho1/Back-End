@@ -1,6 +1,8 @@
 package com.kim3ho1.yourprotein.controller;
 
+import com.kim3ho1.yourprotein.dto.UserRegisterDto;
 import com.kim3ho1.yourprotein.service.KakaoService;
+import com.kim3ho1.yourprotein.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-@RequestMapping("/login")
+@RequestMapping("")
 public class KakaoLoginController {
 
     @Value("${kakao.client_id}")
@@ -23,12 +25,14 @@ public class KakaoLoginController {
     @Autowired
     private KakaoService kakaoService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code) throws IOException {
         String accessToken = kakaoService.getAccessTokenFromKakao(client_id, code);
-        HashMap<String, Object> userInfo = kakaoService.getUserInfo(accessToken);
-        log.info("id : " + userInfo.get("id"));
-        // User 로그인, 또는 회원가입 로직 추가
+        UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(accessToken);
+        userService.registerKakao(userInfo);
         return userInfo.toString();
     }
 }
