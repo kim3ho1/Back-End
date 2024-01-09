@@ -46,7 +46,7 @@ public class KakaoLoginController {
             userService.registerKakao(userInfo);
         }
 
-        response.sendRedirect("http://localhost:5500");
+//        response.sendRedirect("http://localhost:5500");
 
         Cookie cookie = new Cookie("accessToken", userToken.getAccessToken());
         response.addCookie(cookie);
