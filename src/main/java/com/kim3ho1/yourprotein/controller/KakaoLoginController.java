@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("")
+@RequestMapping("/login")
 public class KakaoLoginController {
 
     @Value("${kakao.client_id}")
@@ -38,22 +38,13 @@ public class KakaoLoginController {
 
     private UriComponentsBuilder uriBuilder;
 
-    @GetMapping("/callback")
-    public ResponseEntity<?> callback(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping("/kakao")
+    public ResponseEntity<?> login(@RequestParam("code") String code) throws IOException {
         UserRegisterDto.KakaoResponseDto userToken = kakaoService.getAccessTokenFromKakao(client_id, code);
         UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(userToken.getAccessToken());
         if (!userService.isUserByKakaoId(userInfo.getId())) {
             userService.registerKakao(userInfo);
         }
-
-//        response.sendRedirect("http://localhost:5500");
-
-        Cookie cookie = new Cookie("accessToken", userToken.getAccessToken());
-        response.addCookie(cookie);
-        Cookie cookie2 = new Cookie("refreshToken", userToken.getRefreshToken());
-        response.addCookie(cookie2);
-
-
-        return ResponseEntity.ok(userToken.getAccessToken());
+        return ResponseEntity.ok(userToken);
     }
 }
