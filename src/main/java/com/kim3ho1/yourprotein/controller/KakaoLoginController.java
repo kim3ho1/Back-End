@@ -6,6 +6,7 @@ import com.kim3ho1.yourprotein.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -29,10 +31,12 @@ public class KakaoLoginController {
     private UserService userService;
 
     @GetMapping("/callback")
-    public String callback(@RequestParam("code") String code) throws IOException {
+    public ResponseEntity<?> callback(@RequestParam("code") String code) throws IOException {
         String accessToken = kakaoService.getAccessTokenFromKakao(client_id, code);
         UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(accessToken);
-        userService.registerKakao(userInfo);
-        return userInfo.toString();
+        if (userService.isUserByKakaoId(userInfo.getId())) {
+            userService.registerKakao(userInfo);
+        }
+        return ResponseEntity.ok(UserRegisterDto.KakaoResponseDto.builder().accessToken(accessToken).build());
     }
 }

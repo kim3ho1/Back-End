@@ -3,10 +3,12 @@ package com.kim3ho1.yourprotein.service;
 import com.kim3ho1.yourprotein.domain.User;
 import com.kim3ho1.yourprotein.dto.UserRegisterDto;
 import com.kim3ho1.yourprotein.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -20,6 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> registerKakao(UserRegisterDto.KakaoUserRegisterDto kakaoUserRegisterDto) {
+
+        log.info("User service : Kakao User Register id --> {}", kakaoUserRegisterDto.getId());
+        log.info("User service : Kakao User Register name --> {}", kakaoUserRegisterDto.getName());
+
         userRepository.save(User.builder()
                 .kakaoId(kakaoUserRegisterDto.getId())
                 .email("")
@@ -28,5 +34,10 @@ public class UserServiceImpl implements UserService {
         );
 
         return null;
+    }
+
+    @Override
+    public boolean isUserByKakaoId(Long kakaoId) {
+        return userRepository.findByKakaoId(kakaoId).isPresent();
     }
 }

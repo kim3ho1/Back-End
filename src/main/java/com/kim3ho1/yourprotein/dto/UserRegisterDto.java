@@ -18,4 +18,13 @@ public class UserRegisterDto {
 
     }
 
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class KakaoResponseDto {
+
+        public String accessToken;
+
+    }
+
 }
