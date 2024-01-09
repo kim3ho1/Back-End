@@ -46,15 +46,15 @@ public class KakaoTokenFilter extends OncePerRequestFilter {
     {
 
         try {
-            String accessToken = request.getHeader("accessToken");
+            String bearerToken = request.getHeader("Authorization");
 
             // accessToken 없이 접근할 경우
-            if (accessToken == null) {
+            if (bearerToken == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            authenticateAccessToken(accessToken);
+            authenticateAccessToken(bearerToken.substring(7));
 
             filterChain.doFilter(request, response);
 
