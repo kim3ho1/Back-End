@@ -39,7 +39,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true)
     private String refreshToken;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long kakaoId;
 
 }
