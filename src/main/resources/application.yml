@@ -1,1 +1,22 @@
+api:
+  recipe:
+    key: baf469f650744ae9a7f6
+    url: http://openapi.foodsafetykorea.go.kr/api/%s/COOKRCP01/json/1/%d/
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    url: jdbc:mysql://127.0.0.1:3306/kim3ho1
+    username: root
+    password: 12345678
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true # hibernate 로그 남길지
 
