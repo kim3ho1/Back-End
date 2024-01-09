@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FoodService {
 	private final FoodRepository foodRepository;
-	public List<Food> getFoodInfo(String keyword) {
-		List<Food> foods = foodRepository.searchFoodByFoodName(keyword);
+	public List<Food> searchFoods(String keyword) {
+		List<Food> foods = foodRepository.searchAllByFoodName(keyword);
 		return foods;
 	}
 }

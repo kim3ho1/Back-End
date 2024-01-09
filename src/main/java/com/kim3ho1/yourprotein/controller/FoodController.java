@@ -15,8 +15,10 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/food")
 public class FoodController {
 	private final FoodService foodService;
+
+	// 음식 검색
 	@GetMapping("/search")
-	public ResponseEntity getFoodInfo(@RequestParam("keyword") String keyword) {
-		return ResponseEntity.ok(foodService.getFoodInfo(keyword));
+	public ResponseEntity searchFoods(@RequestParam("keyword") String keyword) {
+		return ResponseEntity.ok(foodService.searchFoods(keyword));
 	}
 }

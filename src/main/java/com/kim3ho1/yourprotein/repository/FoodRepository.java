@@ -11,8 +11,6 @@ import com.kim3ho1.yourprotein.domain.Food;
 
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Long> {
-	@Query(value = "select * from food f where food_name like %:keyword% ; ", nativeQuery = true)
-	List<Food> searchFoodByFoodName(@Param("keyword") String keyword);
-
-
+	@Query(value = "select * from food where food_name like %:keyword% ; ", nativeQuery = true)
+	List<Food> searchAllByFoodName(@Param("keyword") String keyword);
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.domain.Recipe;
 import com.kim3ho1.yourprotein.repository.RecipeRepository;
 
@@ -97,5 +99,18 @@ public class RecipeService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Recipe> getRecommendedRecipe(String protein) {
+		return recipeRepository.searchAllByProtein(protein);
+	}
+
+	public List<Recipe> searchRecipes(String keyword) {
+		List<Recipe> recipes = recipeRepository.searchAllByRecipeName(keyword);
+		return recipes;
+	}
+
+	public Recipe getRecipe(Long recipeId) {
+		return recipeRepository.findById(recipeId).orElseThrow();
 	}
 }
