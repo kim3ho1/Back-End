@@ -32,11 +32,11 @@ public class KakaoLoginController {
 
     @GetMapping("/callback")
     public ResponseEntity<?> callback(@RequestParam("code") String code) throws IOException {
-        String accessToken = kakaoService.getAccessTokenFromKakao(client_id, code);
-        UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(accessToken);
-        if (userService.isUserByKakaoId(userInfo.getId())) {
+        UserRegisterDto.KakaoResponseDto userToken = kakaoService.getAccessTokenFromKakao(client_id, code);
+        UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(userToken.getAccessToken());
+        if (!userService.isUserByKakaoId(userInfo.getId())) {
             userService.registerKakao(userInfo);
         }
-        return ResponseEntity.ok(UserRegisterDto.KakaoResponseDto.builder().accessToken(accessToken).build());
+        return ResponseEntity.ok(userToken);
     }
 }

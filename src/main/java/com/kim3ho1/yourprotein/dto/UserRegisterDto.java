@@ -25,6 +25,8 @@ public class UserRegisterDto {
 
         public String accessToken;
 
+        public String refreshToken;
+
     }
 
 }

@@ -18,7 +18,7 @@ import java.util.Map;
 @Service
 public class KakaoService {
 
-    public String getAccessTokenFromKakao(String client_id, String code) throws IOException {
+    public UserRegisterDto.KakaoResponseDto getAccessTokenFromKakao(String client_id, String code) throws IOException {
         //------kakao POST 요청------
         String reqURL = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id="+client_id+"&code=" + code;
         URL url = new URL(reqURL);
@@ -50,10 +50,8 @@ public class KakaoService {
 
         log.info("Access Token : " + accessToken);
         log.info("Refresh Token : " + refreshToken);
-        log.info("Scope : " + scope);
 
-
-        return accessToken;
+        return UserRegisterDto.KakaoResponseDto.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
     public UserRegisterDto.KakaoUserRegisterDto getUserInfo(String access_Token) throws IOException {
