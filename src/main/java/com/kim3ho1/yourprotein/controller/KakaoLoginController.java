@@ -54,6 +54,6 @@ public class KakaoLoginController {
         response.addCookie(cookie2);
 
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(userToken.getAccessToken());
     }
 }
