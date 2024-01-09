@@ -1,9 +1,9 @@
 server:
-  port: 8000
+  port: 80
 
 kakao:
   client_id: 3d93f617a4d6fc388877925283f37797
-  redirect_uri: http://localhost:8000/callback
+  redirect_uri: http://yourprotein.shop/callback
 
 
 spring:
