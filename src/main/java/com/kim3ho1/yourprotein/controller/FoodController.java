@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kim3ho1.yourprotein.dto.NoteResponseDto;
 import com.kim3ho1.yourprotein.service.FoodService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class FoodController {
 	public ResponseEntity<String> noteProtein(@RequestBody double protein) {
 		foodService.noteProtein(protein);
 		return ResponseEntity.ok("ok");
+	}
+
+	// 메인 화면 정보
+	@GetMapping("")
+	public ResponseEntity<NoteResponseDto.NoteStatisticsResponseDto> getNoteInfo() {
+		return ResponseEntity.ok(foodService.getNoteInfo());
 	}
 }
