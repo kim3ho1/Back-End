@@ -1,11 +1,19 @@
 package com.kim3ho1.yourprotein.service;
 
+import com.kim3ho1.yourprotein.domain.Note;
 import com.kim3ho1.yourprotein.domain.User;
 import com.kim3ho1.yourprotein.dto.UserRegisterDto;
+import com.kim3ho1.yourprotein.repository.NoteRepository;
 import com.kim3ho1.yourprotein.repository.UserRepository;
+import com.kim3ho1.yourprotein.security.CustomUserDetails;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
