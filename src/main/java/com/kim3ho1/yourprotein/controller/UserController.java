@@ -17,7 +17,7 @@ public class UserController {
 	private final UserService userService;
 
 	@PutMapping("/details")
-	public ResponseEntity<?> register(@RequestBody UserRegisterDto.RegisterRequestDto registerRequestDto) {
+	public ResponseEntity<?> modifyUserDetails(@RequestBody UserRegisterDto.RegisterRequestDto registerRequestDto) {
 		userService.modifyUserDetails(registerRequestDto);
 		return ResponseEntity.ok(null);
 	}
