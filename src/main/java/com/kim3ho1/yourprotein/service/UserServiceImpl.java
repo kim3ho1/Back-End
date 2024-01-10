@@ -61,14 +61,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(UserRegisterDto.RegisterRequestDto registerRequestDto) {
+    public void modifyUserDetails(UserRegisterDto.RegisterRequestDto registerRequestDto) {
         log.info("modify user details");
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext();
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDetails.getUser();
+
+        log.info("age", registerRequestDto.getAge());
 
         user.setAge(Integer.valueOf(registerRequestDto.getAge()));
         user.setGender(registerRequestDto.getGender());
-        user.setHeight(Double.parseDouble(registerRequestDto.height));
+        user.setHeight(Double.parseDouble(registerRequestDto.getHeight()));
+        user.setWeight(Double.parseDouble(registerRequestDto.getWeight()));
         user.setPurpose(registerRequestDto.getPurpose());
 
         userRepository.save(user);

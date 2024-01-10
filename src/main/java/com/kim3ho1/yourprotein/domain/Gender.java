@@ -19,10 +19,6 @@ public enum Gender {
         return gender;
     }
 
-    @JsonValue
-    public String getValue() {
-        return gender;
-    }
 
     public static Gender getGender(String gender) {
 

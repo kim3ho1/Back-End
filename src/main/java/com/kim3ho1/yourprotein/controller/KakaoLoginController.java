@@ -22,7 +22,6 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/login")
-@CrossOrigin("*")
 public class KakaoLoginController {
 
     @Value("${kakao.client_id}")

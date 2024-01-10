@@ -49,11 +49,7 @@ public class KakaoTokenFilter extends OncePerRequestFilter {
         try {
             log.info("Kakao Token Filter Activated");
             String bearerToken = request.getHeader("Authorization");
-            Enumeration<String> headerNames = request.getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                log.info("header : " + headerNames.nextElement());
-            }
-            log.info("Token : "+ bearerToken);
+            log.info("Token : " + bearerToken);
 
             // accessToken 없이 접근할 경우
             if (bearerToken == null) {
@@ -62,6 +58,8 @@ public class KakaoTokenFilter extends OncePerRequestFilter {
             }
 
             authenticateAccessToken(bearerToken.substring(7));
+
+            log.info("Authentication success");
 
             filterChain.doFilter(request, response);
 

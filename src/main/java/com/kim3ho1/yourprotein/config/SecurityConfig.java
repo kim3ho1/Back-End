@@ -17,8 +17,11 @@ import org.springframework.security.config.annotation.web.configurers.CorsConfig
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 
@@ -53,7 +56,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(AbstractHttpConfigurer::disable);
+                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()));
 
         // csrf disable
         http
@@ -91,5 +94,16 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    CorsConfigurationSource corsConfigurationSource() {
+        return request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            config.setAllowedMethods(Collections.singletonList("*"));
+            config.setAllowedOriginPatterns(Collections.singletonList("*"));
+            config.setAllowCredentials(true);
+            return config;
+        };
     }
 }

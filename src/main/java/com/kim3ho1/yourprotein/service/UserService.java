@@ -20,5 +20,6 @@ public interface UserService {
 
     void setRefreshTokenByKakaoId(Long kakaoId, String refreshToken);
 
-    void register(UserRegisterDto.RegisterRequestDto registerRequestDto);
+    void modifyUserDetails(UserRegisterDto.RegisterRequestDto registerRequestDto);
+
 }

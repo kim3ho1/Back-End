@@ -13,13 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("*")
 public class UserController {
 	private final UserService userService;
 
-	@PostMapping("/register")
-	public ResponseEntity<?> register(UserRegisterDto.RegisterRequestDto registerRequestDto) {
-		userService.register(registerRequestDto);
+	@PutMapping("/details")
+	public ResponseEntity<?> register(@RequestBody UserRegisterDto.RegisterRequestDto registerRequestDto) {
+		userService.modifyUserDetails(registerRequestDto);
 		return ResponseEntity.ok(null);
 	}
 
