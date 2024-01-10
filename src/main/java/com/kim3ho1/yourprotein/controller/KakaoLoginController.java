@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -25,6 +22,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/login")
+@CrossOrigin("*")
 public class KakaoLoginController {
 
     @Value("${kakao.client_id}")
@@ -44,6 +42,7 @@ public class KakaoLoginController {
         UserRegisterDto.KakaoUserRegisterDto userInfo = kakaoService.getUserInfo(userToken.getAccessToken());
         if (!userService.isUserByKakaoId(userInfo.getId())) {
             userService.registerKakao(userInfo);
+            userToken.setNewUser(true);
         }
         return ResponseEntity.ok(userToken);
     }

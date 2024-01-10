@@ -1,17 +1,12 @@
 package com.kim3ho1.yourprotein.service;
 
-import com.kim3ho1.yourprotein.domain.Note;
 import com.kim3ho1.yourprotein.domain.User;
 import com.kim3ho1.yourprotein.dto.UserRegisterDto;
-import com.kim3ho1.yourprotein.repository.NoteRepository;
 import com.kim3ho1.yourprotein.repository.UserRepository;
 import com.kim3ho1.yourprotein.security.CustomUserDetails;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -63,5 +58,20 @@ public class UserServiceImpl implements UserService {
     public void setRefreshTokenByKakaoId(Long kakaoId, String refreshToken) {
         User user =  userRepository.findByKakaoId(kakaoId).orElseThrow();
         user.setRefreshToken(refreshToken);
+    }
+
+    @Override
+    public void register(UserRegisterDto.RegisterRequestDto registerRequestDto) {
+        log.info("modify user details");
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext();
+        User user = userDetails.getUser();
+
+        user.setAge(Integer.valueOf(registerRequestDto.getAge()));
+        user.setGender(registerRequestDto.getGender());
+        user.setHeight(Double.parseDouble(registerRequestDto.height));
+        user.setPurpose(registerRequestDto.getPurpose());
+
+        userRepository.save(user);
+
     }
 }

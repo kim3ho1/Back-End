@@ -20,4 +20,5 @@ public enum PurposeType {
 	}
 
 	public Double getActivity() { return value; }
+
 }

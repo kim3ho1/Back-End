@@ -31,9 +31,6 @@ public class User extends BaseTimeEntity {
     private String email;
 
     @Column(nullable = true)
-    private String gender;
-
-    @Column(nullable = true)
     private Integer age;
 
     @Column(nullable = true)
@@ -42,11 +39,17 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true)
     private Long kakaoId;
 
-    private Long weight;
+    private double height;
+    private double weight;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     private PurposeType purpose;
 
+    private double currentProtein;
+    private double goalProtein;
 
     public void deleteRefreshToken() {
         this.refreshToken = null;
@@ -54,5 +57,25 @@ public class User extends BaseTimeEntity {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setPurpose(PurposeType purpose) {
+        this.purpose = purpose;
     }
 }
