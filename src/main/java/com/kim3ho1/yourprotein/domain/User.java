@@ -42,6 +42,12 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true)
     private Long kakaoId;
 
+    private Long weight;
+
+    @Enumerated(EnumType.STRING)
+    private PurposeType purpose;
+
+
     public void deleteRefreshToken() {
         this.refreshToken = null;
     }
