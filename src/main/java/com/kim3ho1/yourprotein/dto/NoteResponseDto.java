@@ -17,4 +17,13 @@ public class NoteResponseDto {
 		private double goalProtein;
 		private double currentProtein;
 	}
+
+	@Getter @Setter
+	@AllArgsConstructor
+	@Builder
+	public static class WeeklyNoteStatisticsResponseDto {
+
+		private Object date;
+		private Object amount;
+	}
 }

@@ -1,5 +1,7 @@
 package com.kim3ho1.yourprotein.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,9 +34,15 @@ public class FoodController {
 		return ResponseEntity.ok("ok");
 	}
 
-	// 메인 화면 정보
+	// 메인 화면 정보 - 오늘 섭취량/목표 섭취량
 	@GetMapping("")
 	public ResponseEntity<NoteResponseDto.NoteStatisticsResponseDto> getNoteInfo() {
 		return ResponseEntity.ok(foodService.getNoteInfo());
+	}
+
+	// 메인 화면 정보 - 일주일간 섭취량
+	@GetMapping("/weekly")
+	public ResponseEntity<List<NoteResponseDto.WeeklyNoteStatisticsResponseDto>> getWeekly() {
+		return ResponseEntity.ok(foodService.getWeekly());
 	}
 }
