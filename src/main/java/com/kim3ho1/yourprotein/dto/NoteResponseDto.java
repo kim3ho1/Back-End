@@ -26,4 +26,13 @@ public class NoteResponseDto {
 		private Object date;
 		private Object amount;
 	}
+
+	@Getter @Setter
+	@AllArgsConstructor
+	@Builder
+	public static class NoteRequestDto {
+
+		private Long foodId;
+		private double protein;
+	}
 }

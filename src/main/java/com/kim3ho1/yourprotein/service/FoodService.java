@@ -36,19 +36,19 @@ public class FoodService {
 		return foods;
 	}
 
-	public Note noteProtein(Long foodId) {
+	public Note noteProtein(NoteResponseDto.NoteRequestDto noteRequestDto) {
 		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
 			.getAuthentication()
 			.getPrincipal();
 
-		Food food = foodRepository.findById(foodId).orElseThrow(() -> new RuntimeException());
-		log.info(food.getFoodName());
+		Food food = foodRepository.findById(noteRequestDto.getFoodId()).orElseThrow(() -> new RuntimeException());
 		Note note = Note.builder()
 			.user(principal.getUser())
 			.food(food)
-			.protein(Double.parseDouble(food.getProtein() == null ? "0" : food.getProtein()))
+			.protein(noteRequestDto.getProtein())
 			.build();
 		noteRepository.save(note);
+		log.info(food.toString());
 		return note;
 	}
 

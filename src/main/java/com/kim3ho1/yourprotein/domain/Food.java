@@ -36,16 +36,6 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return "Food{" +
-			"id=" + id +
-			", category='" + category + '\'' +
-			", foodName='" + foodName + '\'' +
-			", amount='" + amount + '\'' +
-			", measure='" + measure + '\'' +
-			", kcal='" + kcal + '\'' +
-			", protein='" + protein + '\'' +
-			", fat='" + fat + '\'' +
-			", carbo='" + carbo + '\'' +
-			'}';
+		return "음식명: " + foodName + ", 양: " + amount + measure + "칼로리는 " + kcal + ". 단백질: " + protein + "지방: " + fat + "탄수화물: " + carbo + "\n";
 	}
 }

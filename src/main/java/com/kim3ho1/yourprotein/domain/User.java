@@ -82,4 +82,9 @@ public class User extends BaseTimeEntity {
     public void setGoalProtein(double goalProtein) {
         this.goalProtein = goalProtein;
     }
+
+    @Override
+    public String toString() {
+        return "안녕. 나는 " + name + "이야. " + "나는 " + age + "세"+ gender + "이야. 키는" + height + "cm이고 몸무게는 " + weight + "kg이야." + "나는 " + purpose + "를 목적으로 단백질 섭취를 하고 있어.\n";
+    }
 }
