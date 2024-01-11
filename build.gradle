@@ -38,9 +38,12 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 
-	//Swagger
+	// Swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.4'
+
+	// ChatGPT
+	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 }
 
 tasks.named('test') {

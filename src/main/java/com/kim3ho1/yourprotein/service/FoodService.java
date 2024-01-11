@@ -18,6 +18,9 @@ import com.kim3ho1.yourprotein.repository.FoodRepository;
 import com.kim3ho1.yourprotein.repository.NoteRepository;
 import com.kim3ho1.yourprotein.security.CustomUserDetails;
 
+import jakarta.persistence.PrePersist;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 public class FoodService {
 	private final FoodRepository foodRepository;
 	private final NoteRepository noteRepository;
+	double current;
+
+	@PrePersist
+	public void init() {
+		this.current = 0;
+	}
+
 	public List<Food> searchFoods(String keyword) {
 		List<Food> foods = foodRepository.searchAllByFoodName(keyword);
 		return foods;
@@ -46,7 +56,6 @@ public class FoodService {
 		return note;
 	}
 
-	double current = 0;
 	public NoteResponseDto.NoteStatisticsResponseDto getNoteInfo() {
 		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
 			.getAuthentication()
