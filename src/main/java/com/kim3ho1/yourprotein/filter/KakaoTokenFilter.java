@@ -93,7 +93,6 @@ public class KakaoTokenFilter extends OncePerRequestFilter {
         // 세션에 사용자 등록
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        //TODO : Refresh Token 작업
     } catch (IOException e) {
             throw new RuntimeException(e);
         }

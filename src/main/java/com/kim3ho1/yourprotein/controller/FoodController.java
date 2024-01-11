@@ -39,7 +39,6 @@ public class FoodController {
 
 	@DeleteMapping("/note/{noteId}")
 	public ResponseEntity<HttpStatus> deleteNote(@PathVariable("noteId") Long noteId) {
-		// TODO Delete 테스트
 		return ResponseEntity.ok(foodService.deleteNote(noteId));
 	}
 

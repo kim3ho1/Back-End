@@ -81,7 +81,9 @@ public class FoodService {
 			.getPrincipal();
 		User user = principal.getUser();
 		Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException());
-		if (note.getUser() != user)
+		log.info(String.valueOf(note.getUser().getId()));
+		log.info(String.valueOf(user.getId()));
+		if (note.getUser().getId() != user.getId())
 			return HttpStatus.BAD_REQUEST;
 		noteRepository.delete(note);
 		return HttpStatus.OK;

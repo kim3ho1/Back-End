@@ -22,16 +22,16 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}
 
-	@PutMapping("/update") // TODO 마이페이지 업데이트 Test
+	@PutMapping("/update")
 	public ResponseEntity<UserRegisterDto.UserResponseDto> updateUserDetails(@RequestBody UserRegisterDto.UpdateUserRequestDto updateUserRequestDto) {
 		return ResponseEntity.ok(userService.updateUserDetails(updateUserRequestDto));
 	}
-	@GetMapping("") // TODO 마이페이지 조회 테스트
+	@GetMapping("")
 	public ResponseEntity<UserRegisterDto.UserResponseDto> getUserDetails() {
 		return ResponseEntity.ok(userService.getUserDetails());
 	}
 
-	@PutMapping("/reset") // TODO 목표 단백질량 초기화
+	@PutMapping("/reset")
 	public ResponseEntity<Double> resetGoal() {
 		return ResponseEntity.ok(userService.resetGoal());
 	}

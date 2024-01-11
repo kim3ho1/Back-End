@@ -19,6 +19,6 @@ public enum PurposeType {
 		return index;
 	}
 
-	public double getPurpose() { return value; }
+	public double getValue() { return value; }
 
 }
