@@ -127,7 +127,7 @@ public class RecipeService {
 		return lists;
 	}
 
-	public Recipe getRecipe(Long recipeId) {
-		return recipeRepository.findById(recipeId).orElseThrow();
+	public RecipeResponseDto.RecipeDetailResponseDto getRecipe(Long recipeId) {
+		return RecipeResponseDto.from(recipeRepository.findById(recipeId).orElseThrow());
 	}
 }
