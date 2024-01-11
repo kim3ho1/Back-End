@@ -10,7 +10,7 @@ public enum PurposeType {
 	TRAINING(2,1.2, "TRAINING"), // 운동 하는 사람
 	BULK(3,2.0, "BULK"); // 벌크업을 원하는 사람
 	private final int index;
-	private final Double value;
+	private final double value;
 	private final String role;
 
 
@@ -19,6 +19,6 @@ public enum PurposeType {
 		return index;
 	}
 
-	public Double getActivity() { return value; }
+	public double getPurpose() { return value; }
 
 }

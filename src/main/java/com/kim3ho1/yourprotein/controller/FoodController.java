@@ -2,8 +2,11 @@ package com.kim3ho1.yourprotein.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,12 @@ public class FoodController {
 	public ResponseEntity<String> noteProtein(@RequestBody double protein) {
 		foodService.noteProtein(protein);
 		return ResponseEntity.ok("ok");
+	}
+
+	@DeleteMapping("/note/{noteId}")
+	public ResponseEntity<HttpStatus> deleteNote(@PathVariable("noteId") Long noteId) {
+		// TODO Delete 테스트
+		return ResponseEntity.ok(foodService.deleteNote(noteId));
 	}
 
 	// 메인 화면 정보 - 오늘 섭취량/목표 섭취량

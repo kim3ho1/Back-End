@@ -78,4 +78,8 @@ public class User extends BaseTimeEntity {
     public void setPurpose(PurposeType purpose) {
         this.purpose = purpose;
     }
+
+    public void setGoalProtein(double goalProtein) {
+        this.goalProtein = goalProtein;
+    }
 }

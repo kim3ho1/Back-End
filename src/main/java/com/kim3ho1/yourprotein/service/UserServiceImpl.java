@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
         user.setRefreshToken(refreshToken);
     }
 
-    @Override
+    @Override // TODO 사용자 추가 정보 설정
     public void modifyUserDetails(UserRegisterDto.RegisterRequestDto registerRequestDto) {
         log.info("modify user details");
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -73,8 +74,62 @@ public class UserServiceImpl implements UserService {
         user.setHeight(Double.parseDouble(registerRequestDto.getHeight()));
         user.setWeight(Double.parseDouble(registerRequestDto.getWeight()));
         user.setPurpose(registerRequestDto.getPurpose());
+        user.setGoalProtein(calculateGoal(
+            Double.parseDouble(registerRequestDto.getWeight()), registerRequestDto.getPurpose().getPurpose()));
 
         userRepository.save(user);
 
+    }
+
+    @Transactional // TODO 마이페이지 업데이트 Test
+    public UserRegisterDto.UserResponseDto updateUserDetails(UserRegisterDto.UpdateUserRequestDto updateUserRequestDto) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        user.setHeight(updateUserRequestDto.getHeight());
+        user.setWeight(updateUserRequestDto.getWeight());
+        user.setPurpose(updateUserRequestDto.getPurpose());
+        user.setGoalProtein(user.getGoalProtein());
+        return UserRegisterDto.UserResponseDto.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .age(user.getAge())
+            .height(user.getHeight())
+            .weight(user.getWeight())
+            .gender(user.getGender())
+            .purpose(user.getPurpose())
+            .goalProtein(user.getGoalProtein())
+            .build();
+    }
+
+    @Override // TODO 마이페이지 테스트
+    public UserRegisterDto.UserResponseDto getUserDetails() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        return UserRegisterDto.UserResponseDto.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .age(user.getAge())
+            .height(user.getHeight())
+            .weight(user.getWeight())
+            .gender(user.getGender())
+            .purpose(user.getPurpose())
+            .goalProtein(user.getGoalProtein())
+            .build();
+    }
+
+    @Override
+    public double calculateGoal(double weight, double val) {
+        return weight * val;
+    }
+
+    @Override
+    @Transactional
+    public double resetGoal() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        user.setGoalProtein(calculateGoal(user.getWeight(), user.getPurpose().getPurpose()));
+        return user.getGoalProtein();
     }
 }
