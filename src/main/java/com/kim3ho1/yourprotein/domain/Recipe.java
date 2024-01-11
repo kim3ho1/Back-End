@@ -30,7 +30,7 @@ public class Recipe {
 	private String details; // 재료
 	private String kcal;
 	private String carbo;
-	private String protein;
+	private double protein;
 	private String fat;
 	private String na;
 	private String kind; // 요리 종류

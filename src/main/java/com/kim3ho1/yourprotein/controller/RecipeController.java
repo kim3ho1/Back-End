@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kim3ho1.yourprotein.domain.Recipe;
+import com.kim3ho1.yourprotein.dto.RecipeResponseDto;
 import com.kim3ho1.yourprotein.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,13 +32,13 @@ public class RecipeController {
 
 	// 단백질량 기반 레시피 추천
 	@GetMapping("/recommend")
-	public ResponseEntity<List<Recipe>> searchRecommendedRecipe(@Param("protein") String protein) {
+	public ResponseEntity<List<RecipeResponseDto.RecipeDetailResponseDto>> searchRecommendedRecipe(@Param("protein") double protein) {
 		return ResponseEntity.ok(recipeService.getRecommendedRecipe(protein));
 	}
 
 	// 레시피 검색
 	@GetMapping("/search")
-	public ResponseEntity<List<Recipe>> searchRecipes(@Param("keyword") String keyword) {
+	public ResponseEntity<List<RecipeResponseDto.RecipeDetailResponseDto>> searchRecipes(@Param("keyword") String keyword) {
 		return ResponseEntity.ok(recipeService.searchRecipes(keyword));
 	}
 

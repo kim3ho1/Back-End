@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.domain.Recipe;
+import com.kim3ho1.yourprotein.dto.RecipeResponseDto;
 import com.kim3ho1.yourprotein.repository.RecipeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -81,7 +83,7 @@ public class RecipeService {
 						.details(recipe.get("RCP_PARTS_DTLS").asText())
 						.kcal(recipe.get("INFO_ENG").asText())
 						.carbo(recipe.get("INFO_CAR").asText())
-						.protein(recipe.get("INFO_PRO").asText())
+						.protein(recipe.get("INFO_PRO").asDouble())
 						.fat(recipe.get("INFO_FAT").asText())
 						.na(recipe.get("INFO_NA").asText())
 						.kind(recipe.get("RCP_PAT2").asText())
@@ -101,13 +103,28 @@ public class RecipeService {
 		}
 	}
 
-	public List<Recipe> getRecommendedRecipe(String protein) {
-		return recipeRepository.searchAllByProtein(protein);
+	public List<RecipeResponseDto.RecipeDetailResponseDto> getRecommendedRecipe(double protein) {
+		List<Recipe> recipes = recipeRepository.searchAllByProtein(protein);
+		List<RecipeResponseDto.RecipeDetailResponseDto> lists = new ArrayList<>();
+		recipes.stream().map(
+			recipe -> {
+				return lists.add(RecipeResponseDto.from(recipe));
+			}
+
+		).collect(Collectors.toList());
+		return lists;
 	}
 
-	public List<Recipe> searchRecipes(String keyword) {
+	public List<RecipeResponseDto.RecipeDetailResponseDto> searchRecipes(String keyword) {
 		List<Recipe> recipes = recipeRepository.searchAllByRecipeName(keyword);
-		return recipes;
+		List<RecipeResponseDto.RecipeDetailResponseDto> lists = new ArrayList<>();
+		recipes.stream().map(
+			recipe -> {
+				return lists.add(RecipeResponseDto.from(recipe));
+			}
+
+		).collect(Collectors.toList());
+		return lists;
 	}
 
 	public Recipe getRecipe(Long recipeId) {

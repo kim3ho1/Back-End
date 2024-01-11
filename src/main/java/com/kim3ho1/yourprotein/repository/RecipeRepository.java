@@ -11,7 +11,8 @@ import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.domain.Recipe;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-	List<Recipe> searchAllByProtein(String protein);
+	@Query(value = "select * from recipe where protein <= :protein order by protein desc limit 5 ; ", nativeQuery = true)
+	List<Recipe> searchAllByProtein(@Param("protein") double protein);
 
 	@Query(value = "select * from recipe where recipe_name like %:keyword% ; ", nativeQuery = true)
 	List<Recipe> searchAllByRecipeName(@Param("keyword") String keyword);
