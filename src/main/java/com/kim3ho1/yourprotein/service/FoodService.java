@@ -2,12 +2,13 @@ package com.kim3ho1.yourprotein.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.domain.Note;
@@ -55,8 +56,7 @@ public class FoodService {
 		List<Note> notesByUserAndToday = noteRepository.calculateToday(user.getId(), LocalDate.now().toString());
 		notesByUserAndToday.stream().map(data->{current+=data.getProtein(); return null; }).collect(Collectors.toList());
 
-		// TODO goal 추가
-		return new NoteResponseDto.NoteStatisticsResponseDto(1000.0, current);
+		return new NoteResponseDto.NoteStatisticsResponseDto(user.getGoalProtein(), current);
 	}
 
 	// 메인 화면 정보 - 일주일간 섭취량
@@ -72,5 +72,18 @@ public class FoodService {
 				.amount(data[1])
 				.build();
 		}).collect(Collectors.toList());
+	}
+
+	@Transactional
+	public HttpStatus deleteNote(Long noteId) {
+		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
+			.getAuthentication()
+			.getPrincipal();
+		User user = principal.getUser();
+		Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException());
+		if (note.getUser() != user)
+			return HttpStatus.BAD_GATEWAY;
+		noteRepository.delete(note);
+		return HttpStatus.OK;
 	}
 }
