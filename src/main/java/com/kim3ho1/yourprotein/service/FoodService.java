@@ -82,7 +82,7 @@ public class FoodService {
 		User user = principal.getUser();
 		Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException());
 		if (note.getUser() != user)
-			return HttpStatus.BAD_GATEWAY;
+			return HttpStatus.BAD_REQUEST;
 		noteRepository.delete(note);
 		return HttpStatus.OK;
 	}
