@@ -99,4 +99,21 @@ public class UserServiceImpl implements UserService {
             .goalProtein(user.getGoalProtein())
             .build();
     }
+
+    @Override // TODO 마이페이지 테스트
+    public UserRegisterDto.UserResponseDto getUserDetails() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        return UserRegisterDto.UserResponseDto.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .age(user.getAge())
+            .height(user.getHeight())
+            .weight(user.getWeight())
+            .gender(user.getGender())
+            .purpose(user.getPurpose())
+            .goalProtein(user.getGoalProtein())
+            .build();
+    }
 }

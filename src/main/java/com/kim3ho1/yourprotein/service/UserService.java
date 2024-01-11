@@ -23,5 +23,6 @@ public interface UserService {
     void modifyUserDetails(UserRegisterDto.RegisterRequestDto registerRequestDto);
 
     UserRegisterDto.UserResponseDto updateUserDetails(UserRegisterDto.UpdateUserRequestDto updateUserRequestDto);
+    UserRegisterDto.UserResponseDto getUserDetails();
 
 }

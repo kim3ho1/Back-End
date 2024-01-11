@@ -22,9 +22,13 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/update") // TODO 마이페이지 업데이트 Test
 	public ResponseEntity<UserRegisterDto.UserResponseDto> updateUserDetails(@RequestBody UserRegisterDto.UpdateUserRequestDto updateUserRequestDto) {
 		return ResponseEntity.ok(userService.updateUserDetails(updateUserRequestDto));
+	}
+	@GetMapping("") // TODO 마이페이지 조회 테스트
+	public ResponseEntity<UserRegisterDto.UserResponseDto> getUserDetails() {
+		return ResponseEntity.ok(userService.getUserDetails());
 	}
 
 }
