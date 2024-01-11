@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.domain.Note;
@@ -50,10 +52,25 @@ public class FoodService {
 			.getPrincipal();
 		User user = principal.getUser();
 
-		List<Note> notesByUserAndToday = noteRepository.calculate(user.getId(), LocalDate.now().toString());
+		List<Note> notesByUserAndToday = noteRepository.calculateToday(user.getId(), LocalDate.now().toString());
 		notesByUserAndToday.stream().map(data->{current+=data.getProtein(); return null; }).collect(Collectors.toList());
 
 		// TODO goal 추가
 		return new NoteResponseDto.NoteStatisticsResponseDto(1000.0, current);
+	}
+
+	// 메인 화면 정보 - 일주일간 섭취량
+	public List<NoteResponseDto.WeeklyNoteStatisticsResponseDto> getWeekly() {
+		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
+			.getAuthentication()
+			.getPrincipal();
+		User user = principal.getUser();
+		List<Object[]> weeklyNotes = noteRepository.getWeekly(user.getId());
+		return weeklyNotes.stream().map(data ->{
+			return NoteResponseDto.WeeklyNoteStatisticsResponseDto.builder()
+				.date(data[0])
+				.amount(data[1])
+				.build();
+		}).collect(Collectors.toList());
 	}
 }
