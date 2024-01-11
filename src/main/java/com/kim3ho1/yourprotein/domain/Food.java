@@ -33,4 +33,11 @@ public class Food {
 	private String protein;
 	private String fat;
 	private String carbo;
+
+	// Food
+	@Override
+	public String toString() {
+		return "음식명: " + foodName + ", 양: " + amount + measure + "칼로리는 " + kcal + ". 단백질: " + protein + "지방: " + fat + "탄수화물: " + carbo + "\n";
+	}
+
 }

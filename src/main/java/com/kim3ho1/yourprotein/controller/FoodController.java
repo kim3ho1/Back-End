@@ -32,8 +32,8 @@ public class FoodController {
 
 	// 노트 기록
 	@PostMapping("/note")
-	public ResponseEntity<String> noteProtein(@RequestBody double protein) {
-		foodService.noteProtein(protein);
+	public ResponseEntity<String> noteProtein(@RequestBody NoteResponseDto.NoteRequestDto noteRequestDto) {
+		foodService.noteProtein(noteRequestDto);
 		return ResponseEntity.ok("ok");
 	}
 

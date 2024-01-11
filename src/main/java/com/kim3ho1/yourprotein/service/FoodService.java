@@ -36,15 +36,17 @@ public class FoodService {
 		return foods;
 	}
 
-	public Note noteProtein(double protein) {
+	public Note noteProtein(NoteResponseDto.NoteRequestDto noteRequestDto) {
 		log.info("=========================");
 		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
 			.getAuthentication()
 			.getPrincipal();
 		log.info(principal.getUser().getName());
+		Food food = foodRepository.findById(noteRequestDto.getFoodId()).orElseThrow(() -> new RuntimeException());
 		Note note = Note.builder()
 			.user(principal.getUser())
-			.protein(protein)
+			.food(food)
+			.protein(noteRequestDto.getProtein())
 			.build();
 		noteRepository.save(note);
 		return note;
