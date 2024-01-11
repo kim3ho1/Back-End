@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         user.setRefreshToken(refreshToken);
     }
 
-    @Override
+    @Override // TODO 사용자 추가 정보 설정
     public void modifyUserDetails(UserRegisterDto.RegisterRequestDto registerRequestDto) {
         log.info("modify user details");
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,6 +74,8 @@ public class UserServiceImpl implements UserService {
         user.setHeight(Double.parseDouble(registerRequestDto.getHeight()));
         user.setWeight(Double.parseDouble(registerRequestDto.getWeight()));
         user.setPurpose(registerRequestDto.getPurpose());
+        user.setGoalProtein(calculateGoal(
+            Double.parseDouble(registerRequestDto.getWeight()), registerRequestDto.getPurpose().getPurpose()));
 
         userRepository.save(user);
 
@@ -115,5 +117,19 @@ public class UserServiceImpl implements UserService {
             .purpose(user.getPurpose())
             .goalProtein(user.getGoalProtein())
             .build();
+    }
+
+    @Override
+    public double calculateGoal(double weight, double val) {
+        return weight * val;
+    }
+
+    @Override
+    @Transactional
+    public double resetGoal() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        user.setGoalProtein(calculateGoal(user.getWeight(), user.getPurpose().getPurpose()));
+        return user.getGoalProtein();
     }
 }

@@ -25,4 +25,6 @@ public interface UserService {
     UserRegisterDto.UserResponseDto updateUserDetails(UserRegisterDto.UpdateUserRequestDto updateUserRequestDto);
     UserRegisterDto.UserResponseDto getUserDetails();
 
+    double calculateGoal(double weight, double val);
+    double resetGoal();
 }

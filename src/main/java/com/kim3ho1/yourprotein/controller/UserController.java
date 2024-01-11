@@ -31,4 +31,9 @@ public class UserController {
 		return ResponseEntity.ok(userService.getUserDetails());
 	}
 
+	@PutMapping("/reset") // TODO 목표 단백질량 초기화
+	public ResponseEntity<Double> resetGoal() {
+		return ResponseEntity.ok(userService.resetGoal());
+	}
+
 }
