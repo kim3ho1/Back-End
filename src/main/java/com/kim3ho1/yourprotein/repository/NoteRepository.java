@@ -20,6 +20,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 	@Query(value = "SELECT * FROM note WHERE note.user_id = :userId AND created_at = :today", nativeQuery = true)
 	List<Note> calculateToday(@Param("userId") Long userId, @Param("today") String today);
 
-	@Query(value = "select n.created_at, SUM(n.protein) from note n where n.user_id = :userId group by n.created_at order by n.created_at asc limit 7 ; ", nativeQuery = true)
+	@Query(value = "select n.created_at, SUM(n.protein) from note n where n.user_id = :userId group by n.created_at order by n.created_at desc limit 7 ; ", nativeQuery = true)
 	List<Object []> getWeekly(@Param("userId") Long userId);
 }
