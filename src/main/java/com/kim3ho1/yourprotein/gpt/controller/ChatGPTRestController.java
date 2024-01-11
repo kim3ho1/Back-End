@@ -6,6 +6,7 @@ import com.kim3ho1.yourprotein.gpt.dto.request.GPTCompletionRequest;
 import com.kim3ho1.yourprotein.gpt.dto.response.CompletionChatResponse;
 import com.kim3ho1.yourprotein.gpt.dto.response.CompletionResponse;
 import com.kim3ho1.yourprotein.gpt.service.GPTChatRestService;
+import com.theokanning.openai.completion.chat.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class ChatGPTRestController {
 
   @PostMapping("/completion/chat")
   public CompletionChatResponse chat(final @RequestBody HashMap<String, String> prompt) {
-    return completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", prompt.get("prompt"), 1000));
+    return completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", prompt.get("prompt"), 5000));
   }
 
 
