@@ -30,12 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 public class FoodService {
 	private final FoodRepository foodRepository;
 	private final NoteRepository noteRepository;
-	double current;
-
-	@PrePersist
-	public void init() {
-		this.current = 0;
-	}
 
 	public List<Food> searchFoods(String keyword) {
 		List<Food> foods = foodRepository.searchAllByFoodName(keyword);
@@ -57,15 +51,18 @@ public class FoodService {
 	}
 
 	public NoteResponseDto.NoteStatisticsResponseDto getNoteInfo() {
+		double count = 0;
 		CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext()
 			.getAuthentication()
 			.getPrincipal();
 		User user = principal.getUser();
 
 		List<Note> notesByUserAndToday = noteRepository.calculateToday(user.getId(), LocalDate.now().toString());
-		notesByUserAndToday.stream().map(data->{current+=data.getProtein(); return null; }).collect(Collectors.toList());
+		double sum = notesByUserAndToday.stream().mapToDouble(Note::getProtein).sum();
 
-		return new NoteResponseDto.NoteStatisticsResponseDto(user.getGoalProtein(), current);
+		// .map(data->{current+=data.getProtein(); return null; }).collect(Collectors.toList());
+
+		return new NoteResponseDto.NoteStatisticsResponseDto(user.getGoalProtein(), sum);
 	}
 
 	// 메인 화면 정보 - 일주일간 섭취량
