@@ -24,7 +24,7 @@ public class ChatGPTRestController {
 
   @PostMapping("/completion/chat")
   public CompletionChatResponse chat(final @RequestBody HashMap<String, String> prompt) {
-    return completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", prompt.get("prompt"), 5000));
+    return completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", prompt.get("prompt"), 2000));
   }
 
 

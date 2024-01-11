@@ -25,14 +25,14 @@ public class GptController {
 	@GetMapping("/total")
 	public ResponseEntity<CompletionChatResponse> totalAdvice() {
 		return ResponseEntity.ok(
-				gptChatRestService.completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", gptService.totalAdvice(), 5000))
+				gptChatRestService.completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", gptService.totalAdvice(), 2000))
 		);
 	}
 
 	@GetMapping("/plan")
 	public ResponseEntity<CompletionChatResponse> planAdvice() {
 		return ResponseEntity.ok(
-				gptChatRestService.completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", gptService.planAdvice(), 5000))
+				gptChatRestService.completionChat(new GPTCompletionChatRequest("gpt-3.5-turbo", "user", gptService.planAdvice(), 2000))
 		);
 	}
 }
