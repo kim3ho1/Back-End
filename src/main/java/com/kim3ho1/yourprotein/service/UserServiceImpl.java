@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -76,5 +77,26 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
+    }
+
+    @Transactional // TODO 마이페이지 업데이트 Test
+    public UserRegisterDto.UserResponseDto updateUserDetails(UserRegisterDto.UpdateUserRequestDto updateUserRequestDto) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        user.setHeight(updateUserRequestDto.getHeight());
+        user.setWeight(updateUserRequestDto.getWeight());
+        user.setPurpose(updateUserRequestDto.getPurpose());
+        user.setGoalProtein(user.getGoalProtein());
+        return UserRegisterDto.UserResponseDto.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .age(user.getAge())
+            .height(user.getHeight())
+            .weight(user.getWeight())
+            .gender(user.getGender())
+            .purpose(user.getPurpose())
+            .goalProtein(user.getGoalProtein())
+            .build();
     }
 }

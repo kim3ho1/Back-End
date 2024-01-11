@@ -22,4 +22,9 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}
 
+	@PutMapping("/update")
+	public ResponseEntity<UserRegisterDto.UserResponseDto> updateUserDetails(@RequestBody UserRegisterDto.UpdateUserRequestDto updateUserRequestDto) {
+		return ResponseEntity.ok(userService.updateUserDetails(updateUserRequestDto));
+	}
+
 }
