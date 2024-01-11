@@ -33,4 +33,19 @@ public class Food {
 	private String protein;
 	private String fat;
 	private String carbo;
+
+	@Override
+	public String toString() {
+		return "Food{" +
+			"id=" + id +
+			", category='" + category + '\'' +
+			", foodName='" + foodName + '\'' +
+			", amount='" + amount + '\'' +
+			", measure='" + measure + '\'' +
+			", kcal='" + kcal + '\'' +
+			", protein='" + protein + '\'' +
+			", fat='" + fat + '\'' +
+			", carbo='" + carbo + '\'' +
+			'}';
+	}
 }

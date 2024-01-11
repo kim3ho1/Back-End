@@ -42,6 +42,11 @@ public class Note{
 	private double protein;
 	private LocalDate createdAt;
 	private LocalDate modifiedAt;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "food_id")
+	private Food food;
+
 	@PrePersist
 	public void createdAt(){
 		this.createdAt = LocalDate.now();

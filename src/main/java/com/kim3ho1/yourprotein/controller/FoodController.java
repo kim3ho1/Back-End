@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kim3ho1.yourprotein.domain.Food;
 import com.kim3ho1.yourprotein.dto.NoteResponseDto;
 import com.kim3ho1.yourprotein.service.FoodService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/food")
@@ -32,8 +35,9 @@ public class FoodController {
 
 	// 노트 기록
 	@PostMapping("/note")
-	public ResponseEntity<String> noteProtein(@RequestBody double protein) {
-		foodService.noteProtein(protein);
+	public ResponseEntity<String> noteProtein(@RequestBody Long foodId) {
+		log.info("================");
+		foodService.noteProtein(foodId);
 		return ResponseEntity.ok("ok");
 	}
 
